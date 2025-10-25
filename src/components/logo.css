@@ -1,0 +1,31 @@
+/* Decorative styles for the AnimatedLogo component.
+   Simple, non-intrusive styles + reduced-motion support so the app passes accessibility checks. */
+
+.animated-logo {
+  display: inline-block;
+  line-height: 0;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* make SVGs behave nicely in buttons/containers */
+.animated-logo svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* subtle hover/active effects are handled via framer-motion in the component,
+   but reserve a CSS fallback for environments without JS */
+.animated-logo:active {
+  transform: scale(0.99);
+}
+
+/* reduce or disable animations for users who request reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated-logo,
+  .animated-logo * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

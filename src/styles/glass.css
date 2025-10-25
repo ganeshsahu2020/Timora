@@ -1,0 +1,34 @@
+// src/styles/glass.css
+/* Floating decor and gradient animations for glassmorphism */
+@keyframes floaty {
+  0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) translateX(3px) rotate(1deg); }
+  100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+}
+
+@keyframes gradientShift {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(25deg); }
+  100% { filter: hue-rotate(0deg); }
+}
+
+/* subtle floating circles used as background decor (place them in the layout root if desired) */
+.floating-decor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: 0.12;
+  animation: floaty 8s ease-in-out infinite;
+}
+
+/* Decorative gradient blur blobs */
+.decorate-blob {
+  width: 360px;
+  height: 360px;
+  border-radius: 40%;
+  background: linear-gradient(135deg, rgba(139,92,246,0.7), rgba(6,182,212,0.6));
+  filter: blur(48px);
+  transform: translate3d(0,0,0);
+  animation: gradientShift 14s ease-in-out infinite;
+}

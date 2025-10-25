@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Timora wordmark">
+  <defs>
+    <linearGradient id="timora-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <g fill="url(#timora-grad)" transform="translate(60,0)">
+    <text x="0" y="190" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-weight="800" font-size="160" letter-spacing="-4">TIM</text>
+  </g>
+  <g transform="translate(470,150)">
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#A78BFA55" stroke-width="10"/>
+    <g stroke="url(#timora-grad)" stroke-width="10" stroke-linecap="round" fill="none">
+      <path d="M0 -44 A44 44 0 0 1 22 -38"/>
+      <path d="M26 -36 A44 44 0 0 1 36 -22"/>
+      <path d="M38 -18 A44 44 0 0 1 34 4"/>
+    </g>
+  </g>
+  <g fill="url(#timora-grad)" transform="translate(560,0)">
+    <text x="0" y="190" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-weight="800" font-size="160" letter-spacing="-6">RA</text>
+  </g>
+</svg>
