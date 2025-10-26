@@ -44,6 +44,7 @@ import {
   NumberInputField,
   Collapse,
   IconButton,
+  Stack, // ← for responsive header actions
 } from '@chakra-ui/react';
 import { Save, LogOut, Shield, Trash2, Info, Link as LinkIcon, User, ChevronDown, ChevronUp } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -224,7 +225,6 @@ export default function Account() {
   };
 
   return (
-    // Provide the required landmark
     <Box minH="100vh">
       {/* Luxe Header with the single H1 for the page */}
       <Box
@@ -251,13 +251,21 @@ export default function Account() {
                 Refine your identity, preferences, and notifications. Beautifully presented.
               </Text>
             </VStack>
-            <HStack spacing={3}>
+
+            {/* Responsive actions: stack on mobile, row on larger screens */}
+            <Stack
+              direction={{ base: 'column', sm: 'row' }}
+              spacing={3}
+              w={{ base: '100%', sm: 'auto' }}
+              align={{ base: 'stretch', sm: 'center' }}
+            >
               <Button
                 leftIcon={<GradientIcon as={Save} aria-hidden="true" focusable="false" />}
                 colorScheme="whiteAlpha"
                 variant="solid"
                 onClick={onSave}
                 isLoading={saving || loading}
+                w={{ base: '100%', sm: 'auto' }}
               >
                 Save
               </Button>
@@ -267,16 +275,22 @@ export default function Account() {
                 color="white"
                 borderColor="whiteAlpha.600"
                 onClick={onSignOut}
+                w={{ base: '100%', sm: 'auto' }}
               >
                 Sign out
               </Button>
-            </HStack>
+            </Stack>
           </HStack>
         </Container>
       </Box>
 
       <Container maxW="7xl" py={{ base: 6, md: 10 }} px={{ base: 4, md: 8 }}>
-        <Grid templateColumns={{ base: '1fr', lg: '2fr 1fr' }} gap={8}>
+        {/* Single column on mobile/tablet; split on large screens */}
+        <Grid
+          templateColumns={{ base: '1fr', lg: '2fr 1fr' }}
+          gap={{ base: 6, md: 8 }}
+          alignItems="start"
+        >
           {/* Left column: Forms */}
           <GridItem>
             {/* Profile + Avatar */}
@@ -555,7 +569,7 @@ export default function Account() {
                   </Text>
                 </Collapse>
 
-                <HStack justify="flex-end">
+                <HStack justify="flex-end" flexWrap="wrap" gap={2}>
                   <Button variant="outline" onClick={() => setPrefsAndSync({})}>
                     Reset to defaults
                   </Button>
@@ -657,7 +671,7 @@ export default function Account() {
 
           {/* Right column: Snapshot & Connected apps */}
           <GridItem>
-            {/* Snapshot metrics */}
+            {/* Profile Snapshot */}
             <GlassCard title="Profile Snapshot">
               <Grid templateColumns="1fr" gap={4}>
                 <Stat>
@@ -687,7 +701,7 @@ export default function Account() {
               </Grid>
             </GlassCard>
 
-            {/* Connected apps (placeholders) */}
+            {/* Connected Apps (placeholders) */}
             <GlassCard title="Connected Apps">
               <VStack align="stretch" spacing={3}>
                 <HStack justify="space-between" border={`1px solid ${border}`} p={3} borderRadius="md">
