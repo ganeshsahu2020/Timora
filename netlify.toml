@@ -3,12 +3,47 @@
   command = "npm run build"
   publish = "dist"
 
-# SPA history fallback
+# Where your serverless functions live
+[functions]
+  directory = "netlify/functions"
+
+# -------- Netlify Dev --------
+# Tell Netlify that our framework is Vite and that it runs on 5161.
+[dev]
+  framework  = "vite"
+  command    = "npm run dev"   # starts Vite
+  targetPort = 5161            # the port Vite uses (your app)
+  port       = 8888            # where Netlify dev proxy runs (open this URL)
+  autoLaunch = true
+
+# -------- API -> Functions redirects --------
+[[redirects]]
+  from = "/api/ai/habits-coach"
+  to = "/.netlify/functions/ai-habits-coach"
+  status = 200
+
+[[redirects]]
+  from = "/api/ai/sleep-coach"
+  to = "/.netlify/functions/ai-sleep-coach"
+  status = 200
+
+[[redirects]]
+  from = "/api/ai/finance-advisor"
+  to = "/.netlify/functions/ai-finance-advisor"
+  status = 200
+
+[[redirects]]
+  from = "/api/ai/addiction-coach"
+  to = "/.netlify/functions/ai-addiction-coach"
+  status = 200
+
+# -------- SPA fallback --------
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
+# -------- Caching --------
 # Service worker should not be cached aggressively while still updatable
 [[headers]]
   for = "/sw.js"

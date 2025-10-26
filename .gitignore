@@ -19,3 +19,6 @@ test-results/
 
 # misc
 *.log
+
+# Local Netlify folder
+.netlify
