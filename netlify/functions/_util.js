@@ -1,17 +1,21 @@
+// netlify/functions/_util.js
 // Shared helpers for all AI functions
 
-export async function withTimeout(ms, promise) {
+export async function withTimeout(ms, run) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), ms);
   try {
-    return await promise(ctrl.signal);
+    return await run(ctrl.signal);
   } finally {
     clearTimeout(t);
   }
 }
 
 // Standard OpenAI call (Chat Completions)
-export async function callOpenAI({ system, user, temperature = 0.35, model = "gpt-4o-mini" }, signal) {
+export async function callOpenAI(
+  { system, user, temperature = 0.35, model = "gpt-4o-mini" },
+  signal
+) {
   const key = process.env.OPENAI_API_KEY || "";
   if (!key) {
     return {
@@ -23,7 +27,7 @@ export async function callOpenAI({ system, user, temperature = 0.35, model = "gp
 
   const resp = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
-    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${key}` },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
     body: JSON.stringify({
       model,
       temperature,

@@ -1,3 +1,4 @@
+// netlify/functions/ai-addiction-coach.js
 import { withTimeout, callOpenAI, readJson } from "./_util.js";
 
 export async function handler(event) {
