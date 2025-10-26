@@ -3,21 +3,19 @@
   command = "npm run build"
   publish = "dist"
 
-# Single Page App rewrite: send all unknown paths to index.html
+# SPA history fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# (Optional) Security headers
+# Service worker should not be cached aggressively while still updatable
 [[headers]]
-  for = "/*"
+  for = "/sw.js"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "no-cache"
 
-# (Optional) Cache static assets emitted by Vite
+# Helpful caching for static assets (tweak to taste)
 [[headers]]
   for = "/assets/*"
   [headers.values]
