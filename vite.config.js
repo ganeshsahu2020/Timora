@@ -40,6 +40,12 @@ export default defineConfig({
           { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
+      // offline fallback for navigations
+      workbox: {
+        navigateFallback: '/offline.html',
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
+      },
+      // devOptions: { enabled: true }, // uncomment to test SW in dev if you want
     }),
   ],
   resolve: {
