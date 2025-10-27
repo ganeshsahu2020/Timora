@@ -1,3 +1,5 @@
+# netlify.toml
+
 [build]
   command = "npm run build"
   publish = "dist"
@@ -6,6 +8,7 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# -------- Netlify Dev --------
 [dev]
   framework  = "vite"
   command    = "npm run dev"
@@ -13,9 +16,11 @@
   port       = 8888
   autoLaunch = true
 
+# -------- Scheduled Functions --------
 [functions."send-reminders"]
   schedule = "*/5 * * * *"
 
+# -------- API -> Functions redirects --------
 [[redirects]]
   from = "/api/ai/habits-coach"
   to = "/.netlify/functions/ai-habits-coach"
@@ -41,11 +46,13 @@
   to = "/.netlify/functions/remove-subscription"
   status = 200
 
+# -------- SPA fallback --------
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
+# -------- Caching --------
 [[headers]]
   for = "/sw.js"
   [headers.values]
@@ -55,3 +62,7 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# NOTE:
+# Do NOT define VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY here.
+# Use .env files locally and Netlify UI env vars in production.

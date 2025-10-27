@@ -1,3 +1,4 @@
+# .netlify/netlify.toml
 [dev]
   framework  = "vite"
   command    = "npm run dev"
