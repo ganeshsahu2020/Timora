@@ -22,3 +22,6 @@ test-results/
 
 # Local Netlify folder
 .netlify
+
+# env
+.env.local
