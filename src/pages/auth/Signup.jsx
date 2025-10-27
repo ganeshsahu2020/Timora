@@ -5,12 +5,12 @@ import {
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { UserPlus, LogIn } from 'lucide-react';
-import { supabase, SUPABASE_URL } from '../../lib/supabase';
+import { supabase } from '../../lib/supabase';
 import AuthShell from '../../components/AuthShell';
 import GradientIcon from '../../components/GradientIcon';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-console.log('🔧 Supabase URL in use:', SUPABASE_URL);
+// console.log('🔧 Supabase URL in use:', import.meta.env.VITE_SUPABASE_URL);
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -161,3 +161,4 @@ export default function Signup() {
     </AuthShell>
   );
 }
+
