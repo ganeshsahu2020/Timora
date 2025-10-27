@@ -1,13 +1,14 @@
+// src/lib/supabase.js (or .ts)
 import { createClient } from '@supabase/supabase-js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const anon = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-console.info('[supabase] URL =>', url);
-console.info('[supabase] ANON len/start/end =>', anon?.length, anon?.slice(0,12), '...', anon?.slice(-8));
-
 if (!url || !anon) {
-  throw new Error('[supabase] Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY at build time.');
+  throw new Error(
+    '[supabase] Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY at build time. ' +
+    'Check your .env.production and build mode.'
+  );
 }
 
 export const supabase = createClient(url, anon, {

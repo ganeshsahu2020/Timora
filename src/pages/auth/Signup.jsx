@@ -161,4 +161,3 @@ export default function Signup() {
     </AuthShell>
   );
 }
-

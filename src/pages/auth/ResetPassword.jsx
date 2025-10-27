@@ -28,7 +28,6 @@ export default function ResetPassword() {
         const code = search.get('code') || hashParams.get('code');
         const access_token = hashParams.get('access_token');
         const refresh_token = hashParams.get('refresh_token');
-        const type = search.get('type') || hashParams.get('type');
 
         // Try PKCE first (query or hash may contain "code")
         if (code) {

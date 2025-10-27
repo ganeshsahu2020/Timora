@@ -1,22 +1,17 @@
-// vite.config.js (client)
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
 export default defineConfig({
-  server: {
-    port: 5161,
-    strictPort: true,
-    // ❌ no proxy here; Netlify dev will handle /api to functions
-  },
-  preview: {
-    port: 5161,
-    strictPort: true,
-  },
+  server: { port: 5161, strictPort: true },
+  preview: { port: 5161, strictPort: true },
   plugins: [
     react(),
     VitePWA({
+      // 🔥 temporary: kill any existing SW on clients
+      selfDestroying: true,
+
       registerType: 'autoUpdate',
       includeAssets: ['timora-icon.svg', 'timora-wordmark.svg'],
       manifest: {
@@ -35,29 +30,18 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // ⬇️ Make updates take effect immediately and control all clients
         clientsClaim: true,
         skipWaiting: true,
-
-        // Offline fallback
         navigateFallback: '/offline.html',
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
-
-        // Avoid intercepting API/function calls
         navigateFallbackDenylist: [/^\/api\//, /^\/\.netlify\/functions\//],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
       },
     }),
   ],
   resolve: {
     alias: {
-      'es-toolkit/compat/get': path.resolve(
-        process.cwd(),
-        'src/shims/es-toolkit-compat-get.js'
-      ),
-      'es-toolkit/compat/get.js': path.resolve(
-        process.cwd(),
-        'src/shims/es-toolkit-compat-get.js'
-      ),
+      'es-toolkit/compat/get': path.resolve(process.cwd(), 'src/shims/es-toolkit-compat-get.js'),
+      'es-toolkit/compat/get.js': path.resolve(process.cwd(), 'src/shims/es-toolkit-compat-get.js'),
     },
   },
   optimizeDeps: { force: true },
