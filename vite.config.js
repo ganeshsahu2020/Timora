@@ -35,8 +35,16 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // ⬇️ Make updates take effect immediately and control all clients
+        clientsClaim: true,
+        skipWaiting: true,
+
+        // Offline fallback
         navigateFallback: '/offline.html',
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
+
+        // Avoid intercepting API/function calls
+        navigateFallbackDenylist: [/^\/api\//, /^\/\.netlify\/functions\//],
       },
     }),
   ],

@@ -1,9 +1,9 @@
 // src/services/reminderStore.js
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabase';
 
 /**
  * This module supports TWO modes:
- * 1) Supabase mode (preferred): if VITE_SUPABASE_URL + VITE_SUPABASE_ANON_KEY exist
+ * 1) Supabase mode (preferred): if a shared `supabase` client exists
  * 2) Local mode (fallback): localStorage-backed for dev without credentials
  *
  * Public API (stable for callers):
@@ -15,7 +15,6 @@ import { createClient } from '@supabase/supabase-js';
  * - savePushSubscription({ endpoint, keys, userAgent })
  * - removePushSubscription(endpoint)
  * - REMINDER_TYPES, RECURRENCES
- * - supabase (exported client; may be null in local mode)
  */
 
 // ---------------- Constants --------------------------------------------------
@@ -29,19 +28,13 @@ export const REMINDER_TYPES = [
 ];
 
 export const RECURRENCES = [
-  { value: 'once',   label: 'One-time' },
-  { value: 'daily',  label: 'Daily' },
-  { value: 'weekly', label: 'Weekly' },
+  { value: 'once',    label: 'One-time' },
+  { value: 'daily',   label: 'Daily' },
+  { value: 'weekly',  label: 'Weekly' },
   { value: 'monthly', label: 'Monthly' },
 ];
 
-// ---------------- Supabase setup --------------------------------------------
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-export const supabase =
-  supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
+// ---------------- Mode detection --------------------------------------------
 
 const isRemote = !!supabase;
 
