@@ -51,9 +51,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import GlassCard from "../components/GlassCard";
 import { getSleepData } from "../services/sleepStore";
-
-// --- API base ---------------------------------------------------------------
-const API_BASE = import.meta.env?.VITE_API_BASE || "http://localhost:5164";
+import { API_BASE } from "../lib/apiBase";
 
 // --- Speech Recognition (guarded for browser support) ------------------------
 const getSpeechRecognition = () => {
@@ -239,7 +237,7 @@ export default function AISleepCoach() {
       console.error("[AISleepCoach] askCoach error:", err);
       toast({
         title: "Sleep coach request failed",
-        description: "Check the server (5164) and your API key in .env",
+        description: "Check the AI API route (/api/ai/sleep-coach) and OPENAI_API_KEY",
         status: "error",
       });
       return "I hit a snag analyzing that. Try again?";

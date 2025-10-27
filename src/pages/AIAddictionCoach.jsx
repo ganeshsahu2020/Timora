@@ -11,7 +11,7 @@ import { FaRobot, FaMicrophone, FaMicrophoneSlash, FaVolumeUp, FaShieldAlt, FaHa
 import { Link as RouterLink } from "react-router-dom";
 import { getRecoverySnapshot } from "../services/recoveryStore";
 
-const API_BASE = import.meta.env?.VITE_API_BASE || "http://localhost:5164";
+import { API_BASE } from "../lib/apiBase";
 
 const getSpeechRecognition = () => {
   if (typeof window === "undefined") return null;
@@ -151,7 +151,7 @@ Please respond with:
     } catch (err) {
       if (err.name === "AbortError") return "Request canceled.";
       console.error("[AIAddictionCoach] error:", err);
-      toast({ title: "Coach request failed", description: "Check server (5164) & API key", status: "error" });
+      toast({ title: "Coach request failed", description: "Check /api/ai/addiction-coach & OPENAI_API_KEY", status: "error" });
       return "I ran into an issue generating that. Please try again.";
     } finally {
       setLoading(false);

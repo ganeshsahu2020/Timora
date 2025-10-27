@@ -50,8 +50,7 @@ import { Link as RouterLink } from "react-router-dom";
 import GlassCard from "../components/GlassCard";
 import { getWealthData } from "../services/wealthStore";
 
-// ---- API base (env or same-origin) -----------------------------------------
-const API_BASE = import.meta.env.VITE_API_BASE || "";
+import { API_BASE } from "../lib/apiBase";
 
 // Speech Recognition (safe)
 const getSpeechRecognition = () => {

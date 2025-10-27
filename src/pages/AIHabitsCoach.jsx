@@ -11,8 +11,7 @@ import { FaRobot, FaMicrophone, FaMicrophoneSlash, FaVolumeUp, FaDumbbell, FaHea
 import { Link as RouterLink } from "react-router-dom";
 import { getUserHabits, generateHabitInsights } from "../services/dataStore";
 
-// Read API base from .env (falls back to same-origin proxy)
-const API_BASE = import.meta.env.VITE_API_BASE || "";
+import { API_BASE } from "../lib/apiBase";
 
 // Safe SpeechRecognition getter
 const getSpeechRecognition = () => {
