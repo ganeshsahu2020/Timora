@@ -16,7 +16,7 @@ import {
   FaUniversity, FaHandHoldingUsd, FaShieldAlt, FaRobot,
   FaExchangeAlt, FaDollarSign, FaChartPie, FaLightbulb, FaCalculator
 } from 'react-icons/fa';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import GlassCard from '../components/GlassCard';
 import {
@@ -40,6 +40,7 @@ export default function Wealth() {
   const [showExportOptions, setShowExportOptions] = useState(false);
   const [aiAdvice, setAiAdvice] = useState(null);
   const [calculations, setCalculations] = useState({});
+  const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [transactionType, setTransactionType] = useState('income');
@@ -218,7 +219,8 @@ export default function Wealth() {
                 Export Report
               </Button>
             </WrapItem>
-            {/* NEW: link to AI Financial Advisor page */}
+
+            {/* Link to AI Financial Advisor page */}
             <WrapItem>
               <Button
                 as={RouterLink}
@@ -231,6 +233,20 @@ export default function Wealth() {
                 w={{ base: 'full', sm: 'auto' }}
               >
                 AI Advisor
+              </Button>
+            </WrapItem>
+
+            {/* ⬇️ NEW: Configure Reminders for Wealth */}
+            <WrapItem>
+              <Button
+                onClick={() => navigate('/reminders?type=wealth&title=Monthly%20Budget')}
+                variant="outline"
+                color="white"
+                borderColor="whiteAlpha.500"
+                size="sm"
+                w={{ base: 'full', sm: 'auto' }}
+              >
+                Configure Reminders
               </Button>
             </WrapItem>
           </Wrap>

@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { DownloadIcon, AddIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import { FaRobot, FaHeartbeat, FaPlay, FaStop } from "react-icons/fa";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GlassCard from "../components/GlassCard";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip as RTooltip, CartesianGrid,
@@ -41,6 +41,7 @@ export default function Addiction() {
     ];
   });
   const [urgeTimer, setUrgeTimer] = useState({ running: false, secs: 180 });
+  const navigate = useNavigate();
 
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -252,6 +253,19 @@ export default function Addiction() {
                 size="sm"
               >
                 Log Intake / Craving
+              </Button>
+            </WrapItem>
+
+            {/* ⬇️ NEW: Configure Reminders for Recovery */}
+            <WrapItem>
+              <Button
+                onClick={() => navigate('/reminders?type=recovery&title=Daily%20Plan')}
+                variant="outline"
+                color="white"
+                borderColor="whiteAlpha.500"
+                size="sm"
+              >
+                Configure Reminders
               </Button>
             </WrapItem>
           </Wrap>

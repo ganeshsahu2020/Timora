@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
 import ProtectedRoute from './components/ProtectedRoute';
 import AppLayout from './layout/AppLayout';
 
@@ -40,11 +41,19 @@ import ResetPassword from './pages/auth/ResetPassword';
 // Personal
 import Account from './pages/Account';
 
+// Reminders (new)
+import Reminders from './pages/Reminders';
+import useReminderTicker from './hooks/useReminderTicker';
+
 // Supabase
 import { supabase } from './lib/supabase';
 
 export default function App() {
   const navigate = useNavigate();
+  const toast = useToast();
+
+  // Start the global reminders ticker (toasts + notifications)
+  useReminderTicker(toast);
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -99,6 +108,9 @@ export default function App() {
           {/* Insights & Settings */}
           <Route path="/insights" element={<Insights />} />
           <Route path="/settings" element={<Settings />} />
+
+          {/* Reminders (new shared page) */}
+          <Route path="/reminders" element={<Reminders />} />
         </Route>
 
         {/* Fallback (inside layout so it still has landmarks) */}

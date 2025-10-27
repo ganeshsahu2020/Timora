@@ -1,4 +1,3 @@
-// server/index.js
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -14,8 +13,17 @@ const PORT = process.env.PORT || 5164;
 
 app.use(express.json());
 
-// If you call the API directly from the browser using VITE_API_BASE, keep CORS:
-app.use(cors({ origin: "http://localhost:5161" }));
+// allow vite (5161) and netlify dev (8888)
+const ALLOW = new Set([
+  "http://localhost:5161",
+  "http://localhost:8888",
+]);
+app.use(cors({
+  origin(origin, cb) {
+    if (!origin || ALLOW.has(origin)) return cb(null, true);
+    return cb(new Error(`CORS blocked: ${origin}`));
+  },
+}));
 
 app.use("/api/ai", aiRoutes);
 
@@ -28,7 +36,6 @@ app.get("/api/ai/debug", (_req, res) => {
   res.json({ ok: true, port: PORT, keyPresent: !!key, keyPrefix: key ? key.slice(0, 8) : null });
 });
 
-// In dev you serve the SPA with Vite, so no static serving needed here.
 app.listen(PORT, () => {
   console.log(`[server] listening on http://localhost:${PORT}`);
 });

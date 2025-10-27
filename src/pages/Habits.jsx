@@ -403,7 +403,13 @@ export default function Habits() {
                         </Box>
                       </HStack>
                     ))}
-                    <Button size="sm" variant="outline" w="100%">
+                    {/* ⬇️ REPLACE this button */}
+                    <Button
+                     size="sm"
+                     variant="outline"
+                     w="100%"
+                     onClick={() => navigate('/reminders?type=habit')}
+                    >
                       Configure Reminders
                     </Button>
                   </VStack>

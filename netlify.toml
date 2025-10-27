@@ -1,11 +1,13 @@
 # netlify.toml
+
 [build]
   command = "npm run build"
   publish = "dist"
 
-# Where your serverless functions live
+# Where your serverless functions live + bundling
 [functions]
   directory = "netlify/functions"
+  node_bundler = "esbuild"
 
 # -------- Netlify Dev --------
 # Tell Netlify that our framework is Vite and that it runs on 5161.
@@ -15,6 +17,11 @@
   targetPort = 5161            # the port Vite uses (your app)
   port       = 8888            # where Netlify dev proxy runs (open this URL)
   autoLaunch = true
+
+# -------- Scheduled Functions --------
+# Runs the send-reminders function every 5 minutes (production deploys only)
+[functions."send-reminders"]
+  schedule = "*/5 * * * *"
 
 # -------- API -> Functions redirects --------
 [[redirects]]
@@ -37,6 +44,13 @@
   to = "/.netlify/functions/ai-addiction-coach"
   status = 200
 
+# Optional: helper endpoint used by push unsubscribe
+# (only needed if you want a pretty "/api" path)
+[[redirects]]
+  from = "/api/push/remove-subscription"
+  to = "/.netlify/functions/remove-subscription"
+  status = 200
+
 # -------- SPA fallback --------
 [[redirects]]
   from = "/*"
@@ -55,3 +69,18 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# -------- Optional: Environment passthrough for local builds --------
+# (Set real values in Netlify UI for production;
+# these help local/dev via `netlify dev` if you want.)
+[build.environment]
+  VITE_SUPABASE_URL = "http://localhost:54321"       # or your project URL
+  VITE_SUPABASE_ANON_KEY = "your-anon-key"
+  VITE_WEB_PUSH_PUBLIC_KEY = "your-vapid-public-key"
+  # Server-only keys should NOT be exposed here in production builds.
+  # Use Netlify UI for:
+  #   SUPABASE_SERVICE_ROLE_KEY
+  #   RESEND_API_KEY
+  #   RESEND_FROM
+  #   WEB_PUSH_PRIVATE_KEY
+  #   WEB_PUSH_SUBJECT

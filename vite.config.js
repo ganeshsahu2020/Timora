@@ -8,13 +8,7 @@ export default defineConfig({
   server: {
     port: 5161,
     strictPort: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5164',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+    // ❌ no proxy here; Netlify dev will handle /api to functions
   },
   preview: {
     port: 5161,
@@ -40,12 +34,10 @@ export default defineConfig({
           { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
-      // offline fallback for navigations
       workbox: {
         navigateFallback: '/offline.html',
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
       },
-      // devOptions: { enabled: true }, // uncomment to test SW in dev if you want
     }),
   ],
   resolve: {

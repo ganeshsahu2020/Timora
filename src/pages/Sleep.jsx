@@ -19,7 +19,7 @@ import {
   FaChartLine, FaChartPie, FaLightbulb, FaVolumeUp,
   FaThermometerHalf
 } from 'react-icons/fa';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import GlassCard from '../components/GlassCard';
 import {
@@ -40,6 +40,7 @@ export default function Sleep() {
   const [activeTab, setActiveTab] = useState(0);
   const [aiAdvice, setAiAdvice] = useState(null);
   const [sleepScore, setSleepScore] = useState(0);
+  const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [entryType, setEntryType] = useState('manual');
@@ -191,6 +192,18 @@ export default function Sleep() {
               w={{ base: 'full', sm: 'auto' }}
             >
               AI Sleep Coach
+            </Button>
+
+            {/* NEW: Configure Reminders for Sleep */}
+            <Button
+              onClick={() => navigate('/reminders?type=sleep&title=Bedtime%20Routine')}
+              variant="outline"
+              color="white"
+              borderColor="whiteAlpha.500"
+              size="sm"
+              w={{ base: 'full', sm: 'auto' }}
+            >
+              Configure Reminders
             </Button>
           </Wrap>
         </VStack>
